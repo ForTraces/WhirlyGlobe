@@ -57,6 +57,7 @@ bool RenderTargetMTL::setTargetTexture(SceneRenderer *renderer,Scene *scene,Simp
     
     setTargetTexture(dynamic_cast<TextureBaseMTL *>(tex.get()));
     
+    
     return true;
 }
 
@@ -161,6 +162,7 @@ void RenderTargetMTL::setTargetTexture(TextureBaseMTL *inTex)
     TextureBaseMTL *theTex = (TextureBaseMTL *)inTex;
     tex = theTex->getMTLID();
     pixelFormat = inTex->getMTLID().pixelFormat;
+    renderPassDesc.clear();
 }
 
 void RenderTargetMTL::setTargetDepthTexture(TextureBaseMTL *inDepthTex)

@@ -134,8 +134,12 @@ using namespace Maply;
         srcTex->setMTLTex(colorTexture);
         alphaTex->setMTLTex(alphaTexture);
 
-        // Set up the target once, but we need a texture to do it
-        if (!alphaTarget) {
+        if (alphaTarget) {
+            // Resetting the texture destination every frame isn't propagated unless we
+            //  do it manually
+            alphaTarget->setTargetTexture(sceneRenderer.get(),scene,alphaTex->getId());
+        } else {
+            // Set up the target once, but we need a texture to do it
             auto defaultTarget = std::dynamic_pointer_cast<RenderTargetMTL>(sceneRenderer->getDefaultRenderTarget());
 
             // Set up a render target to put the texture around
