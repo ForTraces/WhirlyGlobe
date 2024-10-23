@@ -109,7 +109,8 @@ public:
     _textOpacity = [styleSet transDouble:@"text-opacity" entry:styleEntry defVal:1.0];
     _textHaloColor = [styleSet colorValue:@"text-halo-color" val:nil dict:styleEntry defVal:nil multiplyAlpha:false];
     _textHaloWidth = [styleSet doubleValue:@"text-halo-width" dict:styleEntry defVal:0.0];
-
+    _textBgColor = [styleSet transColor:@"text-background-color" entry:styleEntry defVal:nil];
+    _textMaxZoom = [styleEntry[@"maxZoom"] doubleValue];
     return self;
 }
 
@@ -249,6 +250,15 @@ public:
     UIColor *textColor = [self.styleSet resolveColor:_paint.textColor opacity:_paint.textOpacity forZoom:tileInfo.tileID.level mode:MBResolveColorOpacityReplaceAlpha];
     if (textColor)
         desc[kMaplyTextColor] = textColor;
+    UIColor *textBgColor = [self.styleSet resolveColor:_paint.textBgColor opacity:_paint.textOpacity forZoom:tileInfo.tileID.level mode:MBResolveColorOpacityReplaceAlpha];
+    
+    if (textBgColor)
+        desc[kMaplyBackgroundColor] = textBgColor;
+    //
+    if (_paint.textMaxZoom > 0) {
+        desc[kMaplyMaxVis] = @(_paint.textMaxZoom);
+        desc[kMaplyMinVis] = @(0);
+    }
     if (_paint.textHaloColor && _paint.textHaloWidth > 0.0)
     {
         desc[kMaplyTextOutlineColor] = _paint.textHaloColor;

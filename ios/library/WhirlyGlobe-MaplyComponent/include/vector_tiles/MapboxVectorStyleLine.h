@@ -49,7 +49,8 @@ typedef enum {MBLineJoinBevel,MBLineJoinRound,MBLineJoinMiter} MapboxVectorLineJ
 @property (nonatomic) MapboxTransColor *color;
 @property (nonatomic) MapboxTransDouble *width;
 @property (nonatomic) MapboxVectorLineDashArray *lineDashArray;
-
+@property (nonatomic, assign) double lineMaxZoom;
+@property (nonatomic, assign) double lineEpsilon;
 - (instancetype)initWithStyleEntry:(NSDictionary *)styleEntry styleSet:(MapboxVectorStyleSet *)styleSet viewC:(NSObject<MaplyRenderControllerProtocol> *)viewC;
 
 @end

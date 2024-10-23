@@ -76,6 +76,8 @@
     _width = [styleSet transDouble:@"line-width" entry:styleEntry defVal:1.0];
     _color = [styleSet transColor:@"line-color" entry:styleEntry defVal:[UIColor blackColor]];
     id dashArrayEntry = styleEntry[@"line-dasharray"];
+    _lineMaxZoom = [styleEntry[@"maxZoom"] doubleValue];
+    _lineEpsilon = [styleEntry[@"line-epsilon"] doubleValue];
     if (dashArrayEntry)
     {
         if ([dashArrayEntry isKindOfClass:[NSArray class]])
@@ -227,6 +229,14 @@ static unsigned int NextPowOf2(unsigned int val)
     double width = [_paint.width valForZoom:tileInfo.tileID.level+levelBias] * lineScale;
     if (width > 0.0) {
         desc[kMaplyVecWidth] = @(width);
+    }
+    if (_paint.lineMaxZoom > 0) {
+        desc[kMaplyMaxVis]  = @(_paint.lineMaxZoom);
+        desc[kMaplyMinVis] = @(0);
+    }
+    if (_paint.lineEpsilon > 0) {
+        desc[kMaplySubdivType] =   kMaplySubdivGreatCircle;
+        desc[kMaplySubdivEpsilon] = @(_paint.lineEpsilon);
     }
     if (fade != 0.0)
         desc[kMaplyFade] = @(fade);

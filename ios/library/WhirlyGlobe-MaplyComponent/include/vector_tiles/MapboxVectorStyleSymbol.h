@@ -49,7 +49,8 @@ typedef enum {MBTextTransNone,MBTextTransUppercase,MBTextTransLowercase} MapboxT
 @end
 
 @interface MapboxVectorSymbolPaint : NSObject
-
+@property (nonatomic) MapboxTransColor *textBgColor;
+@property (nonatomic, assign) double textMaxZoom;
 // Default text color
 @property (nonatomic) MapboxTransColor *textColor;
 @property (nonatomic) MapboxTransDouble *textOpacity;
